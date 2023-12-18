@@ -56,4 +56,4 @@ git commit -m 'COMMIT_MESSAGE'
 git push origin master
 ```
 
-*[SSH]: Secure Shell
+[SSH]: Secure Shell
