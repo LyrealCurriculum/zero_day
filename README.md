@@ -15,7 +15,7 @@ git config --global user.name "USER_NAME"
 git config --global user.email "USER_EMAIL"
 ```
 
-Creating empty repo in remote server via [GitHub.com](https://github.com/USER_NAME/zero_day.git) GUI.
+Creating empty repo in remote server via [GitHub](https://github.com/USER_NAME/zero_day.git "GitHub User Repo") GUI.
 
 Creating git repo locally and adding from  remote server:
 ```
@@ -42,7 +42,7 @@ mkdir 0x00-vagrant
 touch README.md
 ```
 
-SSH into Ubuntu VM: 
+Doing [^1] SSH into Ubuntu VM: 
 `ssh root@CONTAINER_IP_ADDRESS`
 
 Running `uname`
@@ -55,5 +55,4 @@ git add 0-hello_ubuntu
 git commit -m 'COMMIT_MESSAGE'
 git push origin master
 ```
-
-[SSH]: Secure Shell
+[^1]: Secure Shell
