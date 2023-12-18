@@ -33,6 +33,7 @@ git commit -m 'My first commit'
 git push origin master
 ```
 
+
 1. Hello Ubuntu
 
 Creating zero_day/0x00-vagrant/README.md:
@@ -41,7 +42,7 @@ mkdir 0x00-vagrant
 touch README.md
 ```
 
-SSHing into Ubuntu VM: 
+SSH into Ubuntu VM: 
 `ssh root@CONTAINER_IP_ADDRESS`
 
 Running `uname`
