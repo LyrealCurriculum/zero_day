@@ -2,7 +2,7 @@ This is the **Setting up your local coding environment** project
 
 It involves two _(2)_ tasks.
 
-- 0. Create and setup your Git and GitHub account
+0. Create and setup your Git and GitHub account
 
 Installing git locally:
 `sudo apt-get update`
@@ -10,10 +10,12 @@ Installing git locally:
 `sudo apt-get install git`
 
 Configuring basic info:
-`git config --global user.name "USER_NAME"`
-`git config --global user.email "USER_EMAIL"`
+```
+git config --global user.name "USER_NAME"
+git config --global user.email "USER_EMAIL"
+```
 
-Creating empty repo in remote server via [GitHub.com] (https://github.com/USER_NAME/zero_day.git) GUI.
+Creating empty repo in remote server via [GitHub.com](https://github.com/USER_NAME/zero_day.git) GUI.
 
 Creating git repo locally and adding from  remote server:
 ```
@@ -31,7 +33,7 @@ git commit -m 'My first commit'
 git push origin master
 ```
 
-- 1. Hello Ubuntu
+1. Hello Ubuntu
 
 Creating zero_day/0x00-vagrant/README.md:
 ```
@@ -39,7 +41,7 @@ mkdir 0x00-vagrant
 touch README.md
 ```
 
-[^1] SSHing into Ubuntu VM: 
+SSHing into Ubuntu VM: 
 `ssh root@CONTAINER_IP_ADDRESS`
 
 Running `uname`
@@ -53,4 +55,4 @@ git commit -m 'COMMIT_MESSAGE'
 git push origin master
 ```
 
-[^1]: *[SSH]: Secure Shell
+*[SSH]: Secure Shell
