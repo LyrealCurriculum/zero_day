@@ -1,9 +1,9 @@
 #include "main.h"
 
 /**
- * get_size - reads length of number
+ * get_size - handles length modifiers
  * @format: format specifier
- * @i: parameter
+ * @i: arguments
  * Return: length of number
  */
 int get_size(const char *format, int *i)
