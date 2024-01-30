@@ -3,7 +3,7 @@
 /**
  * get_flags - handles flag characters
  * @format: format specifier
- * @i: argument
+ * @i: arguments
  * Return: flag character
  */
 int get_flags(const char *format, int *i)
