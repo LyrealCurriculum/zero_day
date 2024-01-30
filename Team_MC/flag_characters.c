@@ -1,10 +1,10 @@
 #include "main.h"
 
 /**
- * get_flags - reads flags
+ * get_flags - handles flag characters
  * @format: format specifier
- * @i: parameter
- * Return: flags
+ * @i: argument
+ * Return: flag character
  */
 int get_flags(const char *format, int *i)
 {
