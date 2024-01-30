@@ -3,7 +3,7 @@
 /**
  * get_width - handles field width
  * @format: format specifier
- * @i: list of arguments
+ * @i: arguments
  * @list: list of arguments
  * Return: width
  */
