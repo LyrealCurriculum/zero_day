@@ -1,9 +1,9 @@
 #include "main.h"
 
 /**
- * get_precision - handles precision of string
+ * get_precision - handles precision
  * @format: format specifier
- * @i: arguments
+ * @i: parameter
  * @list: list of arguments
  * Return: precision
  */

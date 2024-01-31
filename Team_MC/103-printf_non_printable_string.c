@@ -1,74 +1,90 @@
 #include "main.h"
 
 /**
- * _X_aux - prints uppercase hexadecimal
- * @num: number
- * Return: counter
+ * print_non_printable - handles S specifier
+ * @types: list of arguments
+ * @buffer: buffer array to handle print
+ * @flags: calculates active flags
+ * @width: width
+ * @precision: precision specifier
+ * @size: size specifier
+ * Return: non-printable string print
  */
-int _X_aux(unsigned int num)
+int print_non_printable(va_list types, char buffer[],
+	int flags, int width, int precision, int size)
 {
-	int i;
-	int *array;
-	int counter = 0;
-	unsigned int temp = num;
+	int i = 0, offset = 0;
+	char *str = va_arg(types, char *);
 
-	while (num / 16 != 0)
-	{
-		num /= 16;
-		counter++;
-	}
-	counter++;
-	array = malloc(counter * sizeof(int));
+	UNUSED(flags);
+	UNUSED(width);
+	UNUSED(precision);
+	UNUSED(size);
 
-	for (i = 0; i < counter; i++)
+	if (str == NULL)
+		return (write(1, "(null)", 6));
+
+	while (str[i] != '\0')
 	{
-		array[i] = temp % 16;
-		temp /= 16;
+		if (is_printable(str[i]))
+			buffer[i + offset] = str[i];
+		else
+			offset += append_hexa_code(str[i], buffer, i + offset);
+
+		i++;
 	}
-	for (i = counter - 1; i >= 0; i--)
-	{
-		if (array[i] > 9)
-			array[i] = array[i] + 7;
-		_putchar(array[i] + '0');
-	}
-	free(array);
-	return (counter);
+
+	buffer[i + offset] = '\0';
+
+	return (write(1, buffer, i + offset));
 }
 
 /**
- * printf_non_printable_string - handles S specifier
- * @val: argument
- * Return: length of the string
+ * is_printable - evaluates if char is printable
+ * @c: char
+ * Return: 1 if c is printable; 0 otherwise
  */
-int printf_non_printable_string(va_list val)
+int is_printable(char c)
 {
-	char *s;
-	int i, len = 0;
-	int cast;
+	if (c >= 32 && c < 127)
+		return (1);
 
-	s = va_arg(val, char *);
-	if (s == NULL)
-		s = "(null)";
-	for (i = 0; s[i] != '\0'; i++)
-	{
-		if (s[i] < 32 || s[i] >= 127)
-		{
-			_putchar('\\');
-			_putchar('x');
-			len = len + 2;
-			cast = s[i];
-			if (cast < 16)
-			{
-				_putchar('0');
-				len++;
-			}
-			len = len + _X_aux(cast);
-		}
-		else
-		{
-			_putchar(s[i]);
-			len++;
-		}
-	}
-	return (len);
+	return (0);
 }
+
+/**
+ * append_hexa_code - append ASCII in hexadecimal code to buffer
+ * @buffer: array of chars
+ * @i: index at which to start appending
+ * @ascii_code: ASCII CODE
+ * Return: Always 3
+ */
+int append_hexa_code(char ascii_code, char buffer[], int i)
+{
+	char map_to[] = "0123456789ABCDEF";
+	/* The hexa format code is always 2 digits long */
+	if (ascii_code < 0)
+		ascii_code *= -1;
+
+	buffer[i++] = '\\';
+	buffer[i++] = 'x';
+
+	buffer[i++] = map_to[ascii_code / 16];
+	buffer[i] = map_to[ascii_code % 16];
+
+	return (3);
+}
+
+/**
+ * is_digit - verifies if char is a digit
+ * @c: char
+ * Return: 1 if c is a digit; 0 otherwise
+ */
+int is_digit(char c)
+{
+	if (c >= '0' && c <= '9')
+		return (1);
+
+	return (0);
+}
+

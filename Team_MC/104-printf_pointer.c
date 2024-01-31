@@ -1,49 +1,51 @@
 #include "main.h"
 
-#define MAX_HEX_DIGITS 16
-
 /**
- * printf_pointer - handles p specifier
- * @args: no. of arguments
- * @printed: printed characters
- * Return: printed characters
+ * print_pointer - handle p specifier
+ * @types: list of arguments
+ * @buffer: buffer array to handle print
+ * @flags: calculates active flags
+ * @width: width
+ * @precision: precision specifier
+ * @size: size specifier
+ * Return: memory address print
  */
-int printf_pointer(va_list args, int printed)
+int print_pointer(va_list types, char buffer[],
+	int flags, int width, int precision, int size)
 {
-	void *ptr = va_arg(args, void*);
-	unsigned long num = (unsigned long) ptr;
-	int digits = 0;
-	int i;
-	unsigned long temp = num;
-	char hex_digits[MAX_HEX_DIGITS] = "0123456789abcdef";
-	char hex[MAX_HEX_DIGITS];
+	char extra_c = 0, padd = ' ';
+	int ind = BUFF_SIZE - 2, length = 2, padd_start = 1;
+	unsigned long num_addrs;
+	char map_to[] = "0123456789abcdef";
+	void *addrs = va_arg(types, void *);
 
-	while (temp != 0)
+	UNUSED(width);
+	UNUSED(size);
+
+	if (addrs == NULL)
+		return (write(1, "(nil)", 5));
+
+	buffer[BUFF_SIZE - 1] = '\0';
+	UNUSED(precision);
+
+	num_addrs = (unsigned long)addrs;
+
+	while (num_addrs > 0)
 	{
-		digits++;
-		temp /= 16;
+		buffer[ind--] = map_to[num_addrs % 16];
+		num_addrs /= 16;
+		length++;
 	}
 
-	printed += _putchar('0');
-	printed += _putchar('x');
+	if ((flags & F_ZERO) && !(flags & F_MINUS))
+		padd = '0';
+	if (flags & F_PLUS)
+		extra_c = '+', length++;
+	else if (flags & F_SPACE)
+		extra_c = ' ', length++;
 
-	if (num == 0)
-	{
-		printed += _putchar('0');
-	}
-	else
-	{
-		for (i = digits - 1; i >= 0; i--)
-		{
-			int digit = num % 16;
+	ind++;
 
-			hex[i] = hex_digits[digit];
-			num /= 16;
-		}
-		for (i = 0; i < digits; i++)
-		{
-			printed += _putchar(hex[i]);
-		}
-	}
-	return (printed);
+	return (write_pointer(buffer, ind, length,
+		width, flags, padd, extra_c, padd_start));
 }
